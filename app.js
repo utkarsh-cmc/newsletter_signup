@@ -7,7 +7,6 @@ const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 const app=express()
 
-console.log("token",process.env.MAILCHIMP_API_TOKEN);
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -56,7 +55,7 @@ app.post("/",function(req,res){
      }.`
     );
     }
-    run().catch(e => res.sendFile(__dirname + "/failure.html"));
+   run().catch(e => res.sendFile(__dirname + "/failure.html"));
 });
 
 //for redirecting failure requests
