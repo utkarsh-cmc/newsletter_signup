@@ -15,7 +15,7 @@ app.get("/",function(req,res){
 
 //setting up mailchimp
 mailchimp.setConfig({
-    apiKey:"eccddfa82fa0c37231d91817381f77ee-us13",
+    apiKey:config.MY_KEY,
     server:"us13"
 });
 
@@ -26,7 +26,7 @@ app.post("/",function(req,res){
     const  lastName = req.body.lname
     const  email = req.body.email
 
-    const listId= "5f59cbaea5";
+    const listId= config.AUDIENCE_ID;
 
     //create an object with users data
     const subscribingUser={
@@ -55,34 +55,6 @@ app.post("/",function(req,res){
     }
     run().catch(e => res.sendFile(__dirname + "/failure.html"));
 });
-    // const data={
-    //     members:[
-    //         {
-    //             email_address:email,
-    //             status:"subscribed",
-    //             merge_fields: {
-    //                 FNAME:firstName,
-    //                 LNAME:lastName
-    //             }
-    //         }
-    //     ]
-    // };
-    // const jsonData = JSON.stringify(data);
-
-    // const url = "https://us13.api.mailchimp.com/3.0/lists/5f59cbaea5";
-    // const options={
-    //     method:"POST",
-    //     auth:"utkarsh:eccddfa82fa0c37231d91817381f77ee-us13"
-    // }
-    // const request = https.request(url,options,function(response){
-    //     response.on("data",function(data){
-    //         console.log(JSON.parse(data));
-    //     })
-    // })
-
-    // request.write(jsonData);
-    // request.end;
-//});
 
 //for redirecting failure requests
 app.post("/failure",function(req,res){
@@ -92,12 +64,6 @@ app.post("/failure",function(req,res){
 app.listen(process.env.PORT || 3000,function(){
     console.log("Server started at port-3000");
 })
-
-// Api key
-// eccddfa82fa0c37231d91817381f77ee-us13
-
-//audience Id
-//5f59cbaea5
 
 //website link 
 // https://morning-wave-14463.herokuapp.com/
