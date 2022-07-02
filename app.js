@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express")
 const bodyParser=require("body-parser")
 const request=require("request")
@@ -6,6 +7,7 @@ const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 const app=express()
 
+console.log("token",process.env.MAILCHIMP_API_TOKEN);
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -13,11 +15,10 @@ app.get("/",function(req,res){
     res.sendFile(__dirname +"/signup.html")
 })
 
-//const apiKey1=config.MY_KEY;
 
 //setting up mailchimp
 mailchimp.setConfig({
-    apiKey:"82cf95132dfe225a776e391821a2c2ce-us13",
+    apiKey:process.env.MAILCHIMP_API_TOKEN,
     server:"us13"
 });
 
@@ -27,7 +28,7 @@ app.post("/",function(req,res){
     const  firstName = req.body.fname
     const  lastName = req.body.lname
     const  email = req.body.email
-    //const audienceid = config.AUDIENCE_ID;
+
     const listId= "5f59cbaea5";
 
     //create an object with users data
